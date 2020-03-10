@@ -10,7 +10,7 @@ public class BuilderCube : MonoBehaviour
     Last Update: 10/3/2020
     Description: Detects when there is no cube below to support it and falls down there is no cubes below.
     */
-    //TODO 
+    //TODO Despawn the cube
     public bool cubeDown = false;
     public bool cubeDownLeft = false;
     public bool cubeDownRight = false;
