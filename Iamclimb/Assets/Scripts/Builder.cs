@@ -10,12 +10,15 @@ public class Builder : MonoBehaviour
     Last Update: 10/3/2020
     Description: Cube movement + placing cube for the builder.
     */
+    //TODO Change the controls to XBox input, Limit the amount of blocks and add more block to place when more is obtained, 
     public bool cubeUp = false;
     public bool cubeDown = false;
     public bool cubeLeft = false;
     public bool cubeRight = false;
     public bool cubeForward = false;
     public bool cubeBack = false;
+
+    public int placeableCubes = 5;
 
     public Transform rb;
     // Start is called before the first frame update

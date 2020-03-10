@@ -10,6 +10,7 @@ public class BuilderCube : MonoBehaviour
     Last Update: 10/3/2020
     Description: Detects when there is no cube below to support it and falls down there is no cubes below.
     */
+    //TODO 
     public bool cubeDown = false;
     public bool cubeDownLeft = false;
     public bool cubeDownRight = false;
@@ -40,7 +41,7 @@ public class BuilderCube : MonoBehaviour
         if(cubeTimer <= 0)
         {
             Debug.Log("Timer 2");
-            //Falling();
+            Falling();
         }
 
         cubeTimer -= Time.deltaTime;
@@ -48,22 +49,23 @@ public class BuilderCube : MonoBehaviour
 
     void DetectDistance()
     {
+        Vector3 offsetRay = new Vector3(0,0.5f,0);
         RaycastHit hit;
         //Fires a raycast in each direction
         Ray rayDown = new Ray(transform.position, -Vector3.up);
         Debug.DrawRay(transform.position, -Vector3.up, Color.green);
 
-        Ray rayDownLeft = new Ray(transform.position/* -= new Vector3(0,0.5f,0)*/, -Vector3.up + Vector3.left);
-        Debug.DrawRay(transform.position -= new Vector3(0, 0.5f, 0), -Vector3.up + Vector3.left, Color.green);
+        Ray rayDownLeft = new Ray(transform.position - offsetRay, Vector3.left);
+        Debug.DrawRay(transform.position - offsetRay, Vector3.left, Color.green);
 
-        Ray rayDownRight = new Ray(transform.position/* -= new Vector3(0,0.5f,0)*/, -Vector3.up + -Vector3.left);
-        Debug.DrawRay(transform.position -= new Vector3(0, 0.5f, 0), -Vector3.up + -Vector3.left, Color.green);
+        Ray rayDownRight = new Ray(transform.position - offsetRay, -Vector3.left);
+        Debug.DrawRay(transform.position - offsetRay, -Vector3.left, Color.green);
 
-        Ray rayDownForward = new Ray(transform.position /*-= new Vector3(0, 0.5f, 0)*/, -Vector3.up + Vector3.forward);
-        Debug.DrawRay(transform.position, -Vector3.up + Vector3.forward, Color.green);
+        Ray rayDownForward = new Ray(transform.position  - offsetRay, Vector3.forward);
+        Debug.DrawRay(transform.position - offsetRay, Vector3.forward, Color.green);
 
-        Ray rayDownBack = new Ray(transform.position /*-= new Vector3(0, 0.5f, 0)*/, -Vector3.up + -Vector3.forward);
-        Debug.DrawRay(transform.position, -Vector3.up + -Vector3.forward, Color.green);
+        Ray rayDownBack = new Ray(transform.position - offsetRay, -Vector3.forward);
+        Debug.DrawRay(transform.position - offsetRay, -Vector3.forward, Color.green);
 
         Ray rayLeft = new Ray(transform.position, Vector3.left);
         Debug.DrawRay(transform.position, Vector3.left, Color.green);
@@ -125,7 +127,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDown = false;
         }
-        if (Physics.Raycast(rayDownLeft, out hit, 1f) && cubeLeft == false)
+        if (Physics.Raycast(rayDownLeft, out hit, 1f) && cubeDown == false)
         {
             cubeDownLeft = true;
             //Debug.Log("DownLeft");
@@ -134,7 +136,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownLeft = false;
         }
-        if (Physics.Raycast(rayDownRight, out hit, 1f) && cubeRight == false)
+        if (Physics.Raycast(rayDownRight, out hit, 1f) && cubeDown == false)
         {
             cubeDownRight = true;
             Debug.Log("DownRight");
@@ -144,7 +146,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownRight = false;
         }
-        if (Physics.Raycast(rayDownForward, out hit, 1f) && cubeForward == false)
+        if (Physics.Raycast(rayDownForward, out hit, 1f) && cubeDown == false)
         {
             cubeDownForward = true;
             //Debug.Log("DownForward");
@@ -153,7 +155,7 @@ public class BuilderCube : MonoBehaviour
         {
             cubeDownForward = false;
         }
-        if (Physics.Raycast(rayDownBack, out hit, 1f) && cubeBack == false)
+        if (Physics.Raycast(rayDownBack, out hit, 1f) && cubeDown == false)
         {
             cubeDownBack = true;
             Debug.Log("DownBack");
@@ -169,7 +171,7 @@ public class BuilderCube : MonoBehaviour
         Vector3 endPos = transform.position - new Vector3(0, 1, 0);
         if (cubeDown == false && cubeDownBack == false && cubeDownForward == false && cubeDownLeft == false && cubeDownRight == false)
         {
-           // transform.position = Vector3.Lerp(transform.position, endPos, 0.000001f);
+            transform.position = Vector3.Lerp(transform.position, endPos, 0.5f);
             
             Debug.Log("Timer");
         }
